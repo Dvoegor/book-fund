@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import TextField from "@material-ui/core/TextField";
-import axiosURL from "./config.json";
-import MuiAlert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -29,17 +28,16 @@ const useStyles = makeStyles({
 });
 
 export default function PersonEdit() {
-  const URL = axiosURL.axiosURL;
-  const query = window.location.pathname
+  const query = window.location.pathname;
 
   const [data, setData] = useState({ reloading: true });
-  const [fullName, setFullName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
   const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState('');
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -48,11 +46,11 @@ export default function PersonEdit() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(URL + query);
-      console.log(result.data)
-      setData({ reloading: false })
-      setFullName(result.data.full_name)
-      setCardNumber(result.data.card_number)
+      const result = await axios.get('/api' + query);
+      console.log(result.data);
+      setData({ reloading: false });
+      setFullName(result.data.full_name);
+      setCardNumber(result.data.card_number);
     }
 
     fetchData();
@@ -61,7 +59,7 @@ export default function PersonEdit() {
   function handleSubmit(event) {
     async function patchData() {
       const result = await axios
-        .patch(URL + query, {
+        .patch('/api' + query, {
           fullName: fullName,
           cardNumber: cardNumber,
         })
@@ -78,8 +76,6 @@ export default function PersonEdit() {
     event.preventDefault();
   }
 
-  
-
   const classes = useStyles();
   if (data.reloading) {
     return (
@@ -92,14 +88,19 @@ export default function PersonEdit() {
       <div className={classes.root}>
         <Container maxWidth="lg" mt={100}>
           <Box mt={5}>
-          <Link exact to="/readers" style={{ textDecoration: "none" }}>
-                <Button variant="outlined" color="primary">
-                  Вернуться
-                </Button>
-              </Link>
+            <Link exact to="/readers" style={{ textDecoration: 'none' }}>
+              <Button variant="outlined" color="primary">
+                Вернуться
+              </Button>
+            </Link>
             <Grid container spacing={3}>
               <Box mt={8} mb={5}>
-                <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <form
+                  className={classes.root}
+                  noValidate
+                  autoComplete="off"
+                  onSubmit={handleSubmit}
+                >
                   <div>
                     <TextField
                       id="standard-multiline-flexible"

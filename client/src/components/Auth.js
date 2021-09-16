@@ -8,7 +8,6 @@ import Container from "@material-ui/core/Container";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
-import axiosURL from "./config.json";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-    const URL = axiosURL.axiosURL;
 
   const [message, setMessage] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -58,7 +56,7 @@ export default function SignIn() {
   function handleSubmit(event) {
     async function postData() {
       await axios
-        .post(URL + "/auth", {
+        .post("api/auth", {
           email: email,
           password: password,
         })

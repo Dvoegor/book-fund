@@ -16,7 +16,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import TextField from "@material-ui/core/TextField";
-import axiosURL from "./config.json";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import Cookies from 'js-cookie';
@@ -31,7 +30,6 @@ const useStyles = makeStyles({
 });
 
 export default function DenseTable() {
-  const URL = axiosURL.axiosURL;
   const token = Cookies.get('auth-token');
   const decodedToken = jwt.decode(token);
   const isAdmin = decodedToken.admin;
@@ -53,7 +51,7 @@ export default function DenseTable() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(URL + "/readers");
+      const result = await axios.get("api/readers");
       setData({ hits: result.data, reloading: false });
     }
 
@@ -63,7 +61,7 @@ export default function DenseTable() {
   function handleSubmit(event) {
     async function postData() {
       const result = await axios
-        .post(URL + "/readers", {
+        .post("api/readers", {
           fullName: fullName,
           cardNumber: cardNumber,
         })
@@ -76,7 +74,7 @@ export default function DenseTable() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + "/readers");
+      const result = await axios.get("api/readers");
       setData({ hits: result.data });
       console.log(data);
     }
@@ -92,7 +90,7 @@ export default function DenseTable() {
   function onDelete(id) {
     async function deleteData() {
       const result = await axios
-        .delete(URL + "/readers/" + id)
+        .delete("api/readers/" + id)
         .then(function (response) {
           setMessage(response.data);
           setOpen(true);
@@ -102,7 +100,7 @@ export default function DenseTable() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + "/readers");
+      const result = await axios.get("api/readers");
       setData({ hits: result.data });
       console.log(data);
     }

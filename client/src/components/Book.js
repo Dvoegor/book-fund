@@ -16,7 +16,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import TextField from "@material-ui/core/TextField";
-import axiosURL from "./config.json";
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import Cookies from 'js-cookie';
@@ -31,7 +30,6 @@ const useStyles = makeStyles({
 });
 
 export default function Book() {
-  const URL = axiosURL.axiosURL;
   const token = Cookies.get('auth-token');
   const decodedToken = jwt.decode(token);
   const isAdmin = decodedToken.admin;
@@ -60,7 +58,7 @@ export default function Book() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(URL + "/books");
+      const result = await axios.get("api/books");
       setData({ hits: result.data, reloading: false });
     }
 
@@ -70,7 +68,7 @@ export default function Book() {
   function handleSubmit(event) {
     async function postData() {
       const result = await axios
-        .post(URL + "/books", {
+        .post("api/books", {
           author: author,
           title: title,
           publishing_house: publishing_house,
@@ -90,7 +88,7 @@ export default function Book() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + "/books");
+      const result = await axios.get("api/books");
       setData({ hits: result.data });
       console.log(data);
     }
@@ -106,7 +104,7 @@ export default function Book() {
   function onDelete(id) {
     async function deleteData() {
       const result = await axios
-        .delete(URL + "/books/" + id)
+        .delete("api/books/" + id)
         .then(function (response) {
           setMessage(response.data);
           setOpen(true);
@@ -116,7 +114,7 @@ export default function Book() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + "/books");
+      const result = await axios.get("api/books");
       setData({ hits: result.data });
       console.log(data);
     }

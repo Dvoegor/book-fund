@@ -16,7 +16,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
-import axiosURL from './config.json';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -41,7 +40,6 @@ const useStyles = makeStyles({
 });
 
 export default function DenseTable() {
-  const URL = axiosURL.axiosURL;
   const token = Cookies.get('auth-token');
   const decodedToken = jwt.decode(token);
   const isAdmin = decodedToken.admin;
@@ -88,15 +86,15 @@ export default function DenseTable() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(URL + '/history');
+      const result = await axios.get('api/history');
       setData({ hits: result.data, reloading: false });
     }
     async function fetchReaders() {
-      const result = await axios.get(URL + '/readers');
+      const result = await axios.get('api/readers');
       setReaders(result.data);
     }
     async function fetchBooks() {
-      const result = await axios.get(URL + '/books');
+      const result = await axios.get('api/books');
       setBooks(result.data);
     }
 
@@ -112,7 +110,7 @@ export default function DenseTable() {
     console.log(selectedReturnDate);
     async function postData() {
       const result = await axios
-        .post(URL + '/history', {
+        .post('api/history', {
           book_id: book,
           reader_id: reader,
           taking_date: selectedDate,
@@ -127,7 +125,7 @@ export default function DenseTable() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + '/history');
+      const result = await axios.get('api/history');
       setData({ hits: result.data });
       console.log(data);
     }
@@ -142,7 +140,7 @@ export default function DenseTable() {
   function onDelete(id) {
     async function deleteData() {
       const result = await axios
-        .delete(URL + '/history/' + id)
+        .delete('api/history/' + id)
         .then(function (response) {
           setMessage(response.data);
           setOpen(true);
@@ -152,7 +150,7 @@ export default function DenseTable() {
         });
     }
     async function fetchData() {
-      const result = await axios.get(URL + '/history');
+      const result = await axios.get('api/history');
       setData({ hits: result.data });
       console.log(data);
     }

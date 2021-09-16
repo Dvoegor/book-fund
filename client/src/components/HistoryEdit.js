@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import TextField from "@material-ui/core/TextField";
-import axiosURL from "./config.json";
-import MuiAlert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
-} from "@material-ui/pickers";
-import moment from "moment";
+} from '@material-ui/pickers';
+import moment from 'moment';
 moment().format();
 
 function Alert(props) {
@@ -45,16 +44,15 @@ const useStyles = makeStyles({
 });
 
 export default function DenseTable() {
-  const URL = axiosURL.axiosURL;
-  const query = window.location.pathname
+  const query = window.location.pathname;
 
   const [data, setData] = useState({ reloading: true });
   const [readers, setReaders] = useState([]);
   const [books, setBooks] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState("");
-//   const date = moment(new Date()).format("YYYY-MM-DD");
-//   console.log(date);
+  const [message, setMessage] = React.useState('');
+  //   const date = moment(new Date()).format("YYYY-MM-DD");
+  //   console.log(date);
 
   const [selectedDate, setSelectedDate] = React.useState();
   const [selectedReturnDate, setSelectedReturnDate] = React.useState();
@@ -81,7 +79,7 @@ export default function DenseTable() {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -89,50 +87,50 @@ export default function DenseTable() {
   };
 
   useEffect(() => {
-      async function fetchHistory() {
-          const result = await axios.get(URL + query)
+    async function fetchHistory() {
+      const result = await axios.get('/api' + query);
 
-          setData({reloading: false})
-          setBook(result.data.book_id)
-          setReader(result.data.reader_id)
-          setSelectedDate(result.data.taking_date)
-          setSelectedReturnDate(result.data.returned_date)
-      }
-      async function fetchReaders() {
-        const result = await axios.get(URL + "/readers");
-  
-        setReaders(result.data);
-      }
-      async function fetchBooks() {
-        const result = await axios.get(URL + "/books");
-        setBooks(result.data);
-      }
+      setData({ reloading: false });
+      setBook(result.data.book_id);
+      setReader(result.data.reader_id);
+      setSelectedDate(result.data.taking_date);
+      setSelectedReturnDate(result.data.returned_date);
+    }
+    async function fetchReaders() {
+      const result = await axios.get('/api/readers');
 
-      fetchReaders()
+      setReaders(result.data);
+    }
+    async function fetchBooks() {
+      const result = await axios.get('/api/books');
+      setBooks(result.data);
+    }
+
+    fetchReaders();
     fetchBooks();
-    fetchHistory()
-    console.log(selectedDate)
+    fetchHistory();
+    console.log(selectedDate);
   }, [setData]);
 
   function handleSubmit(event) {
     async function postData() {
-        const result = await axios
-          .patch(URL + query, {
-            book_id: book,
-            reader_id: reader,
-            taking_date: selectedDate,
-            returned_date: selectedReturnDate,
-          })
-          .then(function (response) {
-            setMessage(response.data);
-            setOpen(true);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
+      const result = await axios
+        .patch('/api' + query, {
+          book_id: book,
+          reader_id: reader,
+          taking_date: selectedDate,
+          returned_date: selectedReturnDate,
+        })
+        .then(function (response) {
+          setMessage(response.data);
+          setOpen(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
 
-      postData();
+    postData();
     event.preventDefault();
   }
 
@@ -148,14 +146,14 @@ export default function DenseTable() {
       <div className={classes.root}>
         <Container maxWidth="lg" mt={100}>
           <Box mt={5}>
-            <Link exact to="/history" style={{ textDecoration: "none" }}>
+            <Link exact to="/history" style={{ textDecoration: 'none' }}>
               <Button variant="outlined" color="primary">
                 Вернуться
               </Button>
             </Link>
             <Grid container spacing={3}>
               <Box mt={8} mb={5}>
-              <form
+                <form
                   className={classes.root}
                   noValidate
                   autoComplete="off"
@@ -226,15 +224,13 @@ export default function DenseTable() {
                       onChange={(e) => handleReturnDateChange(e)}
                     />
                   </div>
-                  
 
                   <br></br>
                   <Button variant="contained" color="primary" type="submit">
                     Изменить запись
                   </Button>
                 </form>
-              
-                </Box>
+              </Box>
               <Snackbar
                 open={open}
                 autoHideDuration={5000}
@@ -244,7 +240,7 @@ export default function DenseTable() {
                   {message}
                 </Alert>
               </Snackbar>
-              </Grid>
+            </Grid>
           </Box>
         </Container>
       </div>

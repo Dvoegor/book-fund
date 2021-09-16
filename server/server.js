@@ -13,7 +13,7 @@ sequelize.authenticate().then(() => {
 const app = express();
 
 const corsOptions = {
-  origin: process.env.DEVELOMPENT_URL,
+  origin: process.env.DEVELOMPENT_URL || '*',
   credentials: true,
   exposedHeaders: ['auth-token'] 
 }
@@ -62,12 +62,12 @@ const authorRoute = require("./routes/authors");
 const bookRoute = require("./routes/books");
 const historyRoute = require("./routes/history");
 
-app.use("/", indexRoute);
-app.use("/auth", authRoute);
-app.use("/readers", readerRoute);
-app.use("/authors", authorRoute);
-app.use("/books", bookRoute);
-app.use("/history", historyRoute);
+app.use("/api/", indexRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/readers", readerRoute);
+app.use("/api/authors", authorRoute);
+app.use("/api/books", bookRoute);
+app.use("/api/history", historyRoute);
 
 sequelize
   .sync()
