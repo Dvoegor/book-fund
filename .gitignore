@@ -38,6 +38,3 @@ client/node_modules
 # Optional REPL history
 .node_repl_history
 .DS_Store
-
-#Excluding build directory
-public/
