@@ -2,7 +2,7 @@
   "name": "book-backend",
   "version": "1.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "12.x"
   },
   "description": "",
   "main": "server.js",
