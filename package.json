@@ -1,0 +1,15 @@
+{
+  "name": "book-fund",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server/app.js",
+    "server": "nodemon server/app.js",
+    "client": "cd client && npm run start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "author": "Grigorii Dvoeglazov",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
