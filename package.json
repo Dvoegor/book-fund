@@ -9,7 +9,7 @@
     "client-install": "npm install --prefix ./client",
     "server-install": "npm install --prefix ./server",
     "install-all": "npm install && npm run client-install && npm run server-install",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && install-all"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm run install-all"
   },
   "author": "Grigorii Dvoeglazov",
   "license": "ISC",
