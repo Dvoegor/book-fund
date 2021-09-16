@@ -4,8 +4,9 @@
   "scripts": {
     "start": "node server/server.js",
     "client-install": "npm install --prefix ./client",
+    "client-build": "npm run build --prefix ./client",
     "server-install": "npm install --prefix ./server",
-    "install-all": "npm install && npm run client-install && npm run server-install",
+    "install-all": "npm install && npm run client-install && client-build && npm run server-install",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm run install-all"
   },
   "author": "Grigorii Dvoeglazov",
