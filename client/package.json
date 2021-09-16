@@ -1,9 +1,6 @@
 {
   "name": "book-frontend",
   "version": "0.1.0",
-  "engines": {
-    "node": "12.x"
-  },
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.10.8",
@@ -41,7 +38,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [

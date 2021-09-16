@@ -1,9 +1,6 @@
 {
   "name": "book-fund",
   "version": "1.0.0",
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "start": "node server/server.js",
     "client-install": "npm install --prefix ./client",
