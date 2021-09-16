@@ -10,6 +10,8 @@
     "client-build": "npm run build --prefix ./client",
     "server-install": "npm install --prefix ./server",
     "install-all": "npm install && npm run client-install && npm run client-build && npm run server-install",
+    "demo-start": "NODE_ENV=production npm start",
+    "demo-prod": "npm run client-build && npm run demo-start",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false && npm run install-all"
   },
   "author": "Grigorii Dvoeglazov",

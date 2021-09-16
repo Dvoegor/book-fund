@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div>
-      <Router>
+      <Router basename='/index.html'>
         <Navbar />
         <Switch>
           <Route path="/auth">

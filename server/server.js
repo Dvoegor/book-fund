@@ -45,24 +45,14 @@ app.use((req, res, next) => {
     next()
   })
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static('../cliend/build'))
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'))
-  })
-}
-
 const PORT = process.env.PORT || 5000;
 
-const indexRoute = require("./routes/index");
 const authRoute = require("./routes/auth");
 const readerRoute = require("./routes/readers");
 const authorRoute = require("./routes/authors");
 const bookRoute = require("./routes/books");
 const historyRoute = require("./routes/history");
 
-app.use("/api/", indexRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/readers", readerRoute);
 app.use("/api/authors", authorRoute);
@@ -78,8 +68,17 @@ sequelize
   })
   .catch((err) => console.log(err));
 
-app.use(function (req, res, next) {
-  next(res.status(404).send("Такой страницы не существует"));
-});
+// app.use(function (req, res, next) {
+//   next(res.status(404).send("Такой страницы не существует"));
+// });
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('../client/build'))
+  // app.use(express.static('../client/public'))
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'))
+  })
+}
 
 module.exports = app;
