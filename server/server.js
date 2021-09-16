@@ -53,7 +53,7 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const indexRoute = require("./routes/index");
 const authRoute = require("./routes/auth");
