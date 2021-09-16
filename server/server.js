@@ -59,15 +59,6 @@ app.use("/api/authors", authorRoute);
 app.use("/api/books", bookRoute);
 app.use("/api/history", historyRoute);
 
-sequelize
-  .sync()
-  .then(() => {
-    app.listen(PORT, function () {
-      console.log("Сервер ожидает подключения...");
-    });
-  })
-  .catch((err) => console.log(err));
-
 // app.use(function (req, res, next) {
 //   next(res.status(404).send("Такой страницы не существует"));
 // });
@@ -80,5 +71,14 @@ if(process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'))
   })
 }
+
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(PORT, function () {
+      console.log("Сервер ожидает подключения...");
+    });
+  })
+  .catch((err) => console.log(err));
 
 module.exports = app;
